@@ -1,0 +1,166 @@
+{% extends '::solicitante_l.html.twig' %}
+
+{% block page -%}
+
+    <style>
+        p{
+            font-size:12px;
+        }
+
+
+    </style>
+
+
+    {# <h1>Solicitudes Forestales</h1>#}
+    <div class="col-lg-12">
+        <fieldset><legend><h2>Bienvenido al sistema de solicitudes de PQRD</h2></legend>
+
+
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img width="140" height="140" alt="Generic placeholder image" src="data:image/gif;base64,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" class="img-circle">
+                    <h2>Registro</h2>
+                    <p><a role="button" href="#" class="btn btn-default" data-toggle="modal" data-target="#myModal">Registrarse »</a></p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-md-4 text-center">
+                    <img width="140" height="140" alt="Generic placeholder image" src="data:image/gif;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxIQEBIQEBAQEBENEBAQEREPGBAQDw8QFRYWFhcRFRUYHyggGBolHRUVITEiJSsrLi4uFx8zRDMsNygtLisBCgoKDg0OGxAQGjMlICUtLS01LS0tNS0rLi0tLS0tLS8tLy0rLS0tKy8tLSsrLS8tLSstLSstLS0tLSstLS4tLf/AABEIAMwAzAMBEQACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABAUBAwYCBwj/xABAEAABAwEDBgkJCQADAQAAAAABAAIDEQQSUQUVMUFTkQYTFCFSYYGi0RYiMkJxgqHB4QczYmRykqOxwpPw8SP/xAAaAQEAAgMBAAAAAAAAAAAAAAAAAQIDBAUG/8QAMhEBAAEDAgIHCAICAwAAAAAAAAECERIDBCFRBRMUFTFBoSJSU2GBotHhMsFxciNCsf/aAAwDAQACEQMRAD8A+4oCAg8SPuiqDRxzigca5A41yBxrkDjXIHGuQONcgca5A41yBxrkDjXIHGuQONcg57htwjlsEMM7Wh4NqZHIw81+MxyEgHUatB7EF9kbKkVrhZPC68yQV62nWxw1EYIJqAgICAgICAgICCPatXb8kGguQKoFUCqBVAqgVQKoFUCqBVAqgVQcZ9qzb1ijH5qM/wAcqDgeCnCGXJs19lXxPoJYSaB46QwcNRQfdMkZTitULZ4XBzHjtadbXDURggmICAgICAgICAgj2vV2/JBHQV2Wbe6INDAC+Q0FdX/ahc7pDd16FNMURxli1a5pjggHKhHM60NqNN2O8K+2vOud3hqxwnUi/wDr+2HrquZnf8z/ABfVO8dT4n2/s66rmZ3/ADP8X1TvHU+J9v7Ouq5md/zI/wCL6p3jqfE+39nXVczO/wCZ/i+qd46nxPt/Z11XMzv+ZH/F9U7x1Pifb+zrquZnf8z/ABfVO8dT4n2/s66rmZ3/ADP8X1TvHU+J9v7Ouq5md/zP8X1TvHU+J9v7Ouq5md/zP8X1TvHU+J9v7Ouq5md/zP8AF9U7x1Pifb+zrquag4aWzjbO1vG8ZSZrqXLlPNeK1r1/Fbux3dWtqTTNd+F/4284+bJpak1TaZcLJAuqzrLgvl6XJ819lXRPoJYtTx0hg4YoPtmSspR2mJs0Lg5jx2tOtrhqIwQS0BAQEBAQEBBGtert+SDQg53ha+nFHC//AJXE6Y/6fX+mruPJzl9cPFrF9MQvpiF9MQvpiF9MQvpiF9MQvpiF9MQvpiIeVOdg/UP6K6nREW15/wBZ/wDYZ9v/AC+infEvRtxokhQWPBrLstglvs86N9BLFqeMRg4YoPsmTMox2mJs0Tg5jx2tOtpGohBLQEBAQEBAQRrZq7fkgjoOZ4ZH7r3/APK4/S0fw+v9NXc+Tmry42LULyYheTELyYheTELyYheTELyYheTELyYheTEeJAHChWbQ1J0a4rheivGbwhusx9q71PSGhMXmbNyNeiXg2Rx1Ke36HP0Ovo5rI8DLUfVZ2uC3GZb8GcjW6xS3m8UY304yMvNHDEc3M4YoPogNe1BlAQEBAQEEa2au35IIyCty1ksWloF665hJadI59IK1d1to16Yi9phi1dPOFL5Jv2rNzlod11e96MHZZ5nkm/as3OTuur3vQ7LPM8k37Vm5yd11e96HZZ5nkm/as3OTuur3vQ7LPM8k37Vm5yd11e96HZZ5nkm/as3OTuur3vQ7LPM8k37Vm5yd11e96HZZ5nkm/as3OTuur3vQ7LPM8k37Vm5yd11e96HZZ5nkm/as3OTuur3vQ7LPM8k37Vm5yd11e96HZZ5nkm/as3OTuur3vQ7LPM8k37Vm5yd11e96HZZ5ttm4KkPBfKC0EEhoNTTVzq9HRlqomqrgmnbceMunXWbYgsI9A9gQekBAQEBAQRbb6vb8kEZAQeHytb6Tmtr0iB/aDzyqPaM/c1LIucqj2jP3NSxc5VHtGfuali5yqPaM/c1LFzlUe0Z+5qWLnKo9oz9zUsXOVR7Rn7mpYucqj2jP3NSxc5VHtGfuali5yqPaM/c1LFzlUe0Z+5qWLvbHgioIIxHOES9ICAgsY9A9gQekBAQEBAQRLd6vb8kEWqBVBz/CSwSyyMdGwvAZQ0pzGpOv2hWplSqJlUZmn2Lu74q14VxkzNPsXd3xS8GMmZp9i7u+KXgxkzNPsXd3xS8GMmZp9i7u+KXgxkzNPsXd3xS8GMmZp9i7u+KXgxkzNPsXd3xS8GMmZp9i7u+KXgxkzNPsXd3xS8GMmZp9i7u+KXgxl0fB6yviiLZG3SXkgGmjmwVapXpi0LSqqsVQEFnHoHsCD0gICAgICCJb/V7fkgiVQKoCAgICAgICAgVQKoFUCqBVAqgIFUFpH6I9gQekBAQEBAQQ8oer2/JBDqgVQc9wlnka9gY54bcr5tQC6pw7FelSq6n5VN05N7lNlLycqm6cm9yWLycqm6cm9yWLycqm6cm9yWLycqm6cm9yWLycqm6cm9yWLyn5CtEpnYHOeWkPqDUj0TSvbRRPgtTe7qqqjIVQKoFUCqBVB8x4acOniQw2V5axhIL2cxkOgm9pu4U06dFFqautN7UvQ7Ho6iKM9aLzPly/bXwW+0B7HcXaSZGHmDjzvb7DrHUVGnrzH8l910XRqRfS4Ty8p/D7Fk+1MmjZJE9r2OaKObzj6HqW3ExMXh56uiqirGqLSkKVBAQEBAQQso+r73yQQqoFUGaoFUCqBVAqgVQKoFUGKoFUCqBVAqgq8uVkjfCx7mF7SC9ukV1KtUXizJpVxRXFUxe3k+IZeyPPZJCJ21Dybko+7kHUdR6itKuiafF6rb7qjXi9M/TzhXtcsbZiXTcE+GE9hf5rr0ZpeY6pa4dfX1jn9uhXormieDDudrp7im1fjz832/g5wjgtzL0TvOABfGfTZXX1jrC3aNSK44PMbnaam3qtVHDynylcK7VEBAQEEHKfq+98kEGqBVBQ8IrVIx7AxzmtLK+bUVNT9FamFKplU5wm2sm8q1oVvJnCbaybyloLyZwm2sm8paC8mcJtrJvKWgvJnCbaybyloLyZwm2sm8paC8mcJtrJvKWgvJnCbaybyloLyZwm2sm8paC8rbg7apHveHvc4BoPnc9DVVqhamV9VVXeZJKBYNxrxpU382TS05rmyumnoa6Vw6d9XpVZXvzdCrQprixLYobXG6N7GyMcPOjdq6xgesLs7fc6W5p9n6x5w0pjU29d44fN8t4X8BZbHWaAOms/PXXLD+oax+IdqrqaU08Y8Hc2nSFOr7NfCr0lyLXLC6cSsMlZVlszxJFI6NzdDm6R1/TQVETMTeE1UU6lONcXh+ksi2sz2aCZwuumhjkcNQLmgmnUulTN4iXjNaiKNSqmPKU1SxiAgIK/Knq+98kEGqBVAr7O2hQOwbggdg3BA7BuCB2DcEDsG4IHYNwQOwbggdg3BA7BuCBX2dlAgwXUVa64opmqU00zVNoQbTOvN7rczqVXl1NLTimLK6WSq5ddd2xEI7Z3McHNJaRrCw061enXlRNphaaIqi1ULyw5VvjzgAdB6LvZ4L1XR/SlO4jGvhV6T/j8OXr7adPjT4OJ4Y8AGS3rRYAGv53Pg0Meddyvonq0Le1NG/GlubPpKafY1fDn+XP/AGfcDn260uE7Hss9lcOPvVYXP1QjXU68B7QsWnp5TxdDeb2NHTvRPGfD8vvzGgAAAANAAA5gANAC3XmJm70gICAgrsrep73yQQKoFUEO25SZCQHXiXCvmgHmUxF0TNkfP8WEm5vipxlGcGf4sJNzfFMZM4M/xYSbm+KYyZwZ/iwk3N8Uxkzgz/FhJub4pjJnBn+LCTc3xTGTODP8WEm5vimMmcGf4sJNzfFMZM4M/wAWEm5vimMmcGfosJNw8UxMoSJrRUDSKitDp7V5/fbvOcafCHT2+jjF58VdNJXmC4upXebQ3Ihpk5gsNXCFoaWNvGiw00zVNlpmze7mFBqWefZi0KeKTkx8j3hjOcnXqA6+pdvorpLVrrjRri/z5f5aO629NMZxwdnZbOI20HtJxdivROe3ICAgICCtyv6nvfJBXVQKoIGUcmCZwdfuFou6KgitfmrRNlZpui+Tw23dPipyRgeTw23dPimRgeTw23dPimRgeTw23dPimRgeTw23dPimRgeTw23dPimRgeTw23dPimRgeTw23dPimRgeTw23dPimRgR5KbE4OL79NApQA4rldIbzGOrp8fNubXb8c5J5l5rV1HTph5Y2gqdJ+AVaabRefFMyjympotaubzZeG5jLo6zpWemjCPmrM3anmvMNaxVXqm0eKfDjLssg5NEMYJ53yAFxwwaF6/o3YxttPj/KfH8ORuNfrKuHgs10WuICAgICCsyz6nvfJBW1QKoMFyDF8YhAvjEIF8YhAvjEIF8YhAvjEIMhwxCDNUHiSSgWpu9zGjR85ZtHSzq+SutEy8traszN5dWmmzVZ473nHQNHWVi0qMpznwWqm3AncmrURDEEVPOOk6PZiq6Wnb2pTVPkxK5K5ISsnWb13e6MOtdzojYW/wCfUjj5fn8NDd69/Yp+rs4PRb+kf0u+0HtAQEBAQEFVlv1Pe/ygrKoFUFRlqyyPc0sY5wDaebU0Nf8AxXpUqiVfm6bZSbipvCtpM3TbKTcUvBaTN02yk3FLwWkzdNspNxS8FpM3TbKTcUvBaTN02yk3FLwWlKyXY5Wytc5j2tF6pIIGgj+yFEzwTTE3XtVRkRbSDSo515rexXXM1+Lq6ONMRSgwxmR1PVGk/JcjTonVqt5NmZxhLlNBQcwHMFt1zERaGOEeOO8anQPiVgpoym8+C8zZ7lcrVyiGLLBfNT6I+JwW10dsu0V5Vx7Mes8vywbjX6um0eMrOq9Y5TpLP6Df0t/pBsQEBAQEBBU5dPoe/wD5QVVUCqDIdggzfOJQL5xKBfOJQL5xKBfOJQL5xKDBcetAVNSbUTK1MXqh7Y1ciIb0yGzihugCvPhUrFXt4tOEWTGpzV8jCXXdFNPUuZXRVNWMtqJi12XcwoNSmq0RaEQ0hhcaDt6go0NvVuNTCn6/KEampGnTlKewACg0Beu0tKnSoiimOEORXVNU3l6qsirp7P6Df0t/pBsQEBAQEBBT5fP3fv8A+UFTVAqgq8sQyOc0ta5zbtPNqRWvV2K9KlSv5LLs5NzlKlpOSy7OTc5C0nJZdnJuchaTksuzk3OQtJyWXZybnIWk5LLs5NzkLScll2cm5yFpTMk2WTjWlzXgCpq4EDRzLX3U205ZtCPbh0jWrmRDemW1rVeIUmWZLOHjA461XU0adSOKadSaVPbLO5hoRp0EaCuPrbfUprim3j4fNuUalMxd6hZdHWdK9FstrG307ec+Lm62rOpVfybKrcYSqDqrN6Df0t/pBsQEBAQEBBTcIdMfv/5QU9UCqD02QjQSPYSEGeOd0nbygcc7pO3lA453SdvKBxzuk7eUDjndJ28oHHO6Tt5QOOd0nbyg4D7X8pyxwWdsc0sbnTOfWN72OF1pANQa+somInxImyj4H/apNA5sWUKzwnm48D/7x9bgPTHx9q169vE8aWWnVnzfbLJMyRjZI3B7JGh7HNNWuaRUEFa9mS7Mlsa38RwHis1GlMsc1Qg2i1ufzHmGAWxTREMczdoqroKoFUHWWb0Gfpb/AEg2oCAgICAgpOEmmP3/APKClqgVQRbXbeLIF2tRXTRTEXVmqzRnb8Hx+itijMzt+D4/RMTMzt+D4/RMTMzt+D4/RMTMzt+D4/RMTMzt+D4/RMTMzt+D4/RMTN88+0q0m0WiGNjSXMjNGDziS46gNPoqsxZaJuh5H+za0TkOnIs0Z1Hzpj7G6B7SexQl9TyDk1tjs7bNE6Qxx1ID3Fxqec+wV1aFGMXum8ptVKCqBVAqgVQdhZfu2fob/QQbUBAQEBAQUfCTTH7/APlBTICDXLZI5Od9+o5gWU0YGqmJsiabtebIMZu4pyVwgzZBjN3EyMIM2QYzdxMjCDNkGM3cTIwgzZBjN3EyMIM2QYzdxMjCDNkGM3cTIwhmKxRMdeYwXiKF7g3jCMC4DR1KJm60RZvUJEBAQEBBhB2Nl+7Z+hv9BBtQEBAQEBBT8IoiWscNDSQeqtPBBRICAgICAgICAgICAgICAgICDLWkkACpPMB1oOxhbda1vRaBuCD2gICDTPOG6UECXK7QgjPy6EEeXLoPNpB0g6CggutsXR3EoNRtsfR+JQY5czo/FBh1uZ0fig18vb0UDl7eigcvb0UDl7eigcvb0UDl7eigcvb0UDl7eigcvb0UGW25vRQbOXM6PxQOXM6PxQe222PW34lBIs+U42GrWgHHSUE5mXgg3x5baUEyDKDXIJoKCParPfCCpmyLVBEkyEUGl2QnINJyI5B5ORXINRyQ/BBjND8EDND8EGHZKeNSDXm1+CBm1+CBm1+CBm1+CBm1+CDLcmPwQbM0PwQM0PwQM0PwQbGZGcUHvMjkGxmQ3INzMhFBIjyGgsLJky6gtGiiDKAgxRAogxcCBcGCDzxYwQOKGCBxQwQYMIwQeeTtwQOTtwQOTtwQOTtwQOTtwQZEDcEHrihggcUMEDihggyIxggzcGCDN0IFEGUBAQf/2Q==" class="img-circle">
+                    <h2>Nueva Solicitud</h2>
+                    <p><a role="button" href="{{ path('write_message') }}" class="btn btn-default">Crear Solicitud »</a></p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-md-4 text-center">
+                    <img width="140" height="140" alt="Generic placeholder image" src="data:image/gif;base64,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" class="img-circle">
+                    <h2>Mis Solicitudes</h2>
+                    <p><a role="button" href="#" class="btn btn-default" data-toggle="modal" data-target="#myModal2">Ver Solicitudes »</a></p>
+                </div><!-- /.col-lg-4 -->
+            </div><!-- /.row -->
+        </fieldset>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+                <div class="alert alert-success" role="alert"><h4 class="text-center"><i class="fa fa-info-circle"></i> <strong>Cómo presentar peticiones, sugerencias, quejas, reclamos y denuncias</strong></h4>
+                    <h5 class="text-center">La Corporación Autónoma Regional de Chivor - CORPOCHIVOR cuenta con los siguientes mecanismos para la presentación de Peticiones, Quejas, Reclamos y Sugerencias:</h5>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-lg-offset-2 col-md-offset-2">
+                            <h5><i class="fa fa-building"></i> <strong>Oficina principal:</strong></h5>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+                            <h5>Carrera 5 No. 10-125 Garagoa (Boyacá)</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-lg-offset-2 col-md-offset-2">
+                            <h5><i class="fa fa-envelope-o"></i> <strong>Correo electrónico:</strong></h5>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+                            <h5>contactenos@corpochivor.gov.co - cchivor@corpochivor.gov.co</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-lg-offset-2 col-md-offset-2">
+                            <h5><i class="fa fa-globe"></i> <strong>Módulo PQRS:</strong></h5>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+                            <h5><a href="http://www.corpochivor.gov.co" target="_blank">www.corpochivor.gov.co</a> - Página institucional</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-lg-offset-2 col-md-offset-2">
+                            <h5><i class="fa fa-fax"></i> <strong>Fax:</strong></h5>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+                            <h5>7 500 770</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-lg-offset-2 col-md-offset-2">
+                            <h5><i class="fa fa-phone"></i> <strong>Telefónica:</strong></h5>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+                            <h5>7 500 661 - Extensión 214 "Atención al Ciudadano"</h5>
+                            <h5>7 500 661 - Extensión 214 "Atención al Ciudadano"</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><b>Terminos y condiciones</b></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-justify"><b>"La Corporación Autónoma Regional de Chivor "CORPOCHIVOR" garantiza la confidencialidad de los datos personales diligenciados por los usuarios a través del presente formulario y su tratamiento de acuerdo con la legislación sobre protección de datos de carácter personal; siendo de uso exclusivo de la entidad y trasladados a terceros con autorización previa del usuario, conforme a la Ley 1581 de 2012 y el Decreto 1377 de 2013"</b>
+                            <br>Por medio de este módulo, usted puede formular:</p>
+                        <p class="text-center"> <b>Petición de Información:</b></p>
+                        <p class="text-justify"><b>
+                                Requerimiento que hace una persona natural o jurídica, pública o privada a la Corporación con el fin de que se le brinde información y orientación con los servicios propios de la Corporación.</b>
+                            <br>Término de respuesta: 10 días hábiles siguientes a la recepción.</p>
+                        <p><b>                                                            <p class="text-center">Petición de Documentación:</b></p>
+                        <p class="text-justify"><b>
+                                Es el requerimiento que hace una persona natural, jurídica o privada a la Corporación, con el fin de obtener copias o fotocopias de documentos que reposen en la entidad.</b>
+                            <br>Término de respuesta: 10 días hábiles siguientes a la recepción.</p>
+                        <p class="text-center"><b>Petición de Consultas:</b></p>
+                        <p class="text-justify"><b>
+                                Es el requerimiento que hace una persona natural o jurídica, pública o privada a la Corporación relacionada con los temas a cargo de la misma y dentro del marco de su competencia, cuya respuesta es un concepto que no es de obligatorio cumplimiento o ejecución.</b>
+                            <br>Término de respuesta: 30 días hábiles siguientes a la recepción.</p>
+
+                        <p class="text-center"><b>Petición de interés general:</b></p>
+                        <p class="text-justify"><b>
+                                Se fundamenta en la necesidad de proteger el bien común y el interés general.</b>
+                            <br>Término de respuesta: 15 días hábiles siguientes a la recepción.</p>
+
+                        <p class="text-center"><b>          Petición de interés particular:</b></p>
+                        <p class="text-justify"><b>
+                                Busca el reconocimiento por parte del Estado, de un derecho del cual es titular el peticionario.</b>
+                            <br>Término de respuesta: 15 días hábiles siguientes a la recepción.</p>
+                        <p class="text-center"><b>       Sugerencia: </b></p>
+                        <p class="text-justify"><b>
+                                Es una propuesta o consejo que formula un usuario o institución para mejorar los servicios de la entidad.</b>
+                            <br>Término de respuesta: 15 días hábiles siguientes a la recepción.</p>
+                        <p class="text-center"><b>            Quejas:</b></p>
+                        <p class="text-justify"><b>
+                                Es la manifestación de insatisfacción verbal o escrita, presentada a la entidad por una persona natural o jurídica, con respecto a la conducta o actuar de un funcionario y/o contratista de la entidad en desarrollo de sus funciones.</b>
+                            <br>Término de respuesta: 15 días hábiles siguientes a la recepción.</p>
+                        <p class="text-center"><b>          Reclamos:</b></p>
+                        <p class="text-justify"><b>
+                                Es la manifestación de insatisfacción verbal o escrita, presentada a la entidad por una persona natural o jurídica, sobre le incumplimiento o irregularidad de algunas de las características de los servicios ofrecidos por le entidad.</b>
+                            <br>Término de respuesta: 15 días hábiles siguientes a la recepción.</p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">No acepto</button>
+                        <a role="button" href="{{ path('solicitante_new') }}" class="btn btn-primary">Acepto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><b>Busqueda de solicitudes</b></h4>
+                    </div>
+                    <div class="modal-body">
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        {{ form_row(form.documento) }}
+                        {{ form_row(form.submit) }}
+                        {{ form_widget(form._token) }}
+                        {{ form_end(form, {'render_rest': false}) }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

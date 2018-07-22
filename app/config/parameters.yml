@@ -1,0 +1,12 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: localhost
+    database_port: null
+    database_name: corpochivorgov_pqrd2
+    database_user: corpochi_pqrd
+    database_password: 'b6?n_^5Di.TT72'
+    mailer_transport: gmail
+    mailer_host: smtp.gmail.com
+    mailer_user: hermelopezp@gmail.com
+    mailer_password: Herme%01
+    secret: aaae6fa102ef566a08b50ae054cd586ebb49f14a

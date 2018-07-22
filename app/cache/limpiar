@@ -1,0 +1,11 @@
+#!/bin/bash
+
+rm -r -f dev/
+rm -r -f prod/
+mkdir dev
+mkdir prod
+chown corpochivorgov:corpochivorgov -R dev/
+chown corpochivorgov:corpochivorgov -R prod/
+chmod 755 -R dev/
+chmod 755 -R prod/
+

@@ -1,0 +1,20 @@
+numero_curso;cedula;nombres;ciudad_exp;cargo;entidad;curso;desde;hasta;horas;fecha_exp
+1234;1067891559;Sander Mora Garces;Monteria;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891560;Cristian Constante Lopez;Bogota;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891561;Andres Ortega Porras;Medellin;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891562;Sandy Sanchez Morales;Medellin;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891563;Calixto Lopez Mestra;Medellin;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891564;Sannin Banquet Palencia;Monteria;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891565;Pedro Oscar Mora Garces;Monteria;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891566;Ingris Martinez;Monteria;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891567;Erika Hernandez;Bogota;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891568;Carolina Buitrago;Monteria;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891569;Daniel Berrocal;Monteria;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891570;Hammer Pinto;Monteria;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891571;Lilian Guerra;Monteria;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891572;Alfonso Lopez;Monteria;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891573;Jorge Rey Cabeza;Monteria;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891574;Luis Meza;Bogota;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891575;Eduard Santodomingo;Monteria;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891576;Jose Lopez;Medellin;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016
+1234;1067891577;Maria Garces;Monteria;Ingeniero;Info Online;Desarrollo de Aplicaciones  Moviles en Java;19/01/2016;19/01/2016;80;19/01/2016

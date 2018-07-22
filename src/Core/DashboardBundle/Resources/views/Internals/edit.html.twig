@@ -1,0 +1,49 @@
+{% extends  "::dashboard.html.twig" %}
+{% block title %}Modificar Empleado{% endblock %}
+{% block header %}Modificar Empleado {% endblock %}
+{% block mainpage %}
+    <div class="col-lg-6">
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Modificar Empleado
+            </div>
+            <div class="panel-body">
+                <form role="form"  action="{{ path('internal_update',{'id':internal.id}) }}" method="POST">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input name="firstname" type="text" value="{{internal.firstname}}" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido</label>
+                        <input name="lastname" type="text" value="{{internal.lastname}}" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="enabled" id="optionsRadios1" value="1" {% if internal.enabled %}checked{% endif %}>Habilitado
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="enabled" id="optionsRadios2" value="0" {% if internal.enabled == 0 %}checked{% endif %}>Deshabilitado
+                            </label>
+                        </div>
+                     </div>
+                    <div class="form-group">
+                        <label>Area</label>
+                        <select name="role" class="form-control">
+                            {% for group in groups %}
+                                <option value="{{group.id}}" {% if internal.dependecyID.id == group.id %} selected{% endif %}>{{group.name|capitalize}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <input type="submit" class="btn btn-primary" value="Modificar" />
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

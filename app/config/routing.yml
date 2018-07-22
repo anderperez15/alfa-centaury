@@ -1,0 +1,26 @@
+core_dashboard:
+    resource: "@CoreDashboardBundle/Resources/config/routing.yml"
+    prefix:   /dashboard
+
+core_solicitante:
+    resource: "@CoreDashboardBundle/Resources/config/solicitante.yml"
+    prefix:   /solicitante
+
+core_users:
+    resource: "@CoreUsersBundle/Resources/config/routing.yml"
+    prefix:   /
+
+homepage:
+    pattern:   /
+    defaults:  { _controller: AppBundle:Default:index}
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+fos_user_group:
+    resource: "@FOSUserBundle/Resources/config/routing/group.xml"
+    prefix: /group
+
+crone_job:
+    resource: "@CoreDashboardBundle/Resources/config/crone.yml"
+    prefix:   /crone

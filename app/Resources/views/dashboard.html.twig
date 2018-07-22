@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}Modulo PQRD{% endblock %}</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ asset('bundles/helpdesk/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{{ asset('bundles/helpdesk/css/metisMenu.min.css') }}" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="{{ asset('bundles/helpdesk/css/timeline.css') }}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ asset('bundles/helpdesk/css/sb-admin-2.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('bundles/helpdesk/footable/css/footable.core.css') }}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="{{ asset('bundles/helpdesk/css/morris.css') }}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ asset('bundles/helpdesk/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/helpdesk/css/body.css') }}" rel="stylesheet">
+
+    {% block addStyles %} {% endblock %}
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+   
+</head>
+
+<body>
+    {% block content %}
+    <div id="wrapper">
+
+        <nav class="navbar navbar-default navbar-static-top minav" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a style="color: #FFFFFF" class="navbar-brand" href="{{path('core_users_homepage')}}">Modulo PQRD</a>
+            </div>
+            
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a style="color: #FFFFFF" class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="{{path('fos_user_profile_show')}}"><i class="fa fa-user fa-fw"></i> Perfil</a>
+                        </li>
+                        <li><a href="{{path('fos_user_profile_edit')}}"><i class="fa fa-gear fa-info-circle"></i> Editar mi perfil</a>
+                        </li>
+                        <li><a href="{{path('fos_user_change_password')}}"><i class="fa fa-gear fa-lock"></i> Cambiar Contraseña</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="{{path('fos_user_security_logout')}}"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                
+                            </div>
+                        </li>
+                        <li>
+                            <a href="{{path('core_users_homepage')}}"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                        </li>
+                        {% if user.granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="#"><i class="fa fa-list"></i> Listado de Empleados<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{{path('internals')}}">Ver Todos</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{path('new_internal')}}">Agregar Empleado</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-desktop"></i> Areas<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{{path('fos_user_group_list')}}">Ver Todas</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{path('fos_user_group_new')}}">Agregar Area</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{path('dependence_boss')}}">Agregar Jefe a Area</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="{{path('demands')}}"><i class="fa fa-support"></i> Configurar Peticiones</a>
+                            </li>
+                        {% elseif user.granted('ROLE_EXTERNAL') %}
+                            <li>
+                                <a href="#"><i class="fa fa-envelope-o"></i> Mis PQRD<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{{path('my_messages')}}">Ver Todos</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{path('write_message')}}">Escribir PQRD</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        
+                            <li>
+                                <a href="#"><i class="fa fa-reply-all"></i> Peticiones<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{{path('messages_internals')}}">Mis Peticiones</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{path('messages_see_type',{'type':'archived'})}}">Peticiones Archivadas</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{path('messages_see_type',{'type':'closed'})}}">Peticiones Cerradas</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="{{path('my_notifs')}}"><i class="fa fa-envelope-o"></i> Mis notificaciones</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">{% block header %}Modulo PQRD{% endblock %}</h1>
+                </div>
+            </div>
+{#            {{render(controller('CoreDashboardBundle:Dashboard:badge'))}}#}
+            <div class="row">
+                {% block mainpage %}
+                
+                {% endblock %}
+            </div>
+    
+            
+        </div>
+    </div>
+    {% endblock %}
+    <!-- jQuery -->
+    <script src="{{ asset('bundles/helpdesk/js/jquery.min.js') }}"></script>
+ 
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ asset('bundles/helpdesk/js/bootstrap.min.js') }}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="{{ asset('bundles/helpdesk/js/metisMenu.min.js') }}"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="{{ asset('bundles/helpdesk/js/raphael-min.js') }}"></script>
+    
+    <script src="{{ asset('bundles/helpdesk/js/morris-data.js') }}"></script>
+    
+    <script src="{{ asset('bundles/helpdesk/js/morris.min.js') }}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ asset('bundles/helpdesk/js/sb-admin-2.js') }}"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="{{ asset('bundles/helpdesk/footable/js/footable.js') }}"></script>
+    <script src="{{ asset('bundles/helpdesk/footable/js/footable.filter.js') }}"></script>
+    <script src="{{ asset('bundles/helpdesk/footable/js/footable.paginate.js') }}"></script>
+
+<script type="text/javascript">
+
+ $('body').on('focus',".footable", function(){
+            $(this).footable();
+        });
+
+    $(function () {
+        $('.footable').footable().bind('footable_filtering', function(e) {
+            var selected = $('.filter-area').find(':selected').text();
+            if (selected && selected.length > 0) {
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            }
+        });
+        $('.clear-filter').click(function(e) {
+            e.preventDefault();
+            $('.filter-area').val('');
+            $('#footable.footable').trigger('footable_clear_filter');
+        });
+        $('.filter-area').change(function(e) {
+            e.preventDefault();
+            $('#footable.footable').trigger('footable_filter', {filter: $('#filter').val()});
+            console.log(  $('#footable.footable').trigger('footable_filter', {filter: $('#filter').val()}));
+        });           
+    });
+</script>
+    {% block addScripts %} {% endblock %}
+
+</body>
+
+</html>

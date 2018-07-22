@@ -1,0 +1,144 @@
+{% extends  "::solicitante_l.html.twig" %}
+{% block title %} PQRD{% endblock %}
+{% block header %} Detalles PQRD {% endblock %}
+{% block page %}
+<div class="col-lg-10 col-md-offset-1">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+           Detalles PQRD
+        </div>
+        <div class="panel-body">
+    <div class="row">
+    <div class="col-md-6">
+            <dl>
+                <dt>Asunto: </dt>
+                <dd>{{message.subject}}</dd>
+                <dt>Mensaje: </dt>
+                <dd>{{message.message}}</dd>
+                <dt>Radicado: </dt>
+                <dd>{{message.radicado}}</dd>
+                <dt>Fecha Radicacion: </dt>
+                <dd>{{message.radicado}}</dd>
+                <dt>Creado: </dt>
+                <dd>{{message.createdOn|date('d-m-Y')}}</dd>
+                <dt>Medio de Respuesta: </dt>
+                <dd>{{message.contactType}}</dd>
+                {% if message.contactType == 'adress' %}
+                    <dt>Direccion del Solicitante: </dt>
+                    <dd>{{message.createdBy.direccion}}</dd>
+                {% endif %}
+                {% if message.contactType == 'mail' %}
+                    <dt>Correo Electronico: </dt>
+                    <dd>{{message.createdBy.correo}}</dd>
+                {% endif %}
+                <dt>Tipo Solicitud: </dt>
+                <dd>{{message.demandType.demandType}}</dd>
+                </dl>
+                   </div>
+<div class="col-md-6">
+                <dl>  
+                <dt>Area Actual: </dt>
+                <dd>{{message.currentService}}</dd>
+                <dt>Estado: </dt>
+                <dd>{{message.status}}</dd>
+                {% if message.status =='cerrado' %}
+                <dt>Cerrado por: </dt>
+                <dd>{{message.closedBy.firstname}} {{message.closedBy.lastname}}</dd>
+                <dt>Respuesta: </dt>
+                <dd>{{message.responseText}}</dd>
+                {% elseif message.status =='archivado'  %}
+                <dt>Archived because it has not been treated in time  </dt>
+                {% endif %}
+                <dt>No. de Ticket: </dt>
+                <dd>{{message.code}}</dd>
+                <dt>Deber ser atendida antes de: </dt>                           
+                <dd>{% if message.antesD%}{{message.antesD|date('Y-m-d') }}{% endif %}</dd>               
+            </dl>            
+</div>
+</div>
+
+<table class="table table-bordered">
+<tr><td>Archivos :</td>
+<td>
+  {% if message.attachments is not empty %}
+                 
+                  {% for attachment in message.attachments %}
+                 <a href="{{ asset('attachments/'~attachment.path) }}" download="{{ asset('attachments/'~attachment.path) }}">Archivo {{loop.index}} </a>
+                  {% endfor %}
+                {% endif %}                
+</td>
+</tr>
+</table>
+     <a href="{{path('solicitante_inicio')}}" class="btn btn-primary">Salir</a> <a target="_blank" href="{{path('pdf_pet',{'id':message.id})}}" class="btn btn-info" >PDF</a>
+<br>         
+        </div>
+    </div>
+ {% if message.status =='Cerrado' %}
+<div role="alert" class="alert alert-info alert-dismissible fade in">
+<button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button> 
+<p class="text-center">
+<h4 class="text-center" style="">Tu opinión es muy importante para nosotros... cuéntanos tu satisfacción del nuevo proceso de peticiones en linea de CORPOCHIVOR.</h4>
+</p> 
+<p> <a href="http://www.corpochivor.gov.co/pqr-encuestas/" class="btn btn-default" type="button" TARGET="_blank">Realizar Encuesta</a></p> 
+</div>
+{% endif %}
+
+ <div class="panel panel-default">
+        <div class="panel-heading">
+             Total Historial de Peticiones {{historials.getTotalItemCount}}
+        </div>
+        <div class="panel-body">
+            {% if  historials.getTotalItemCount >0 %}
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Creada</th>                            
+                            <th>Estado</th>
+                            <th>Mensaje</th>
+                            <th>Area Destino</th>                            
+                            <th>Fecha de Cierre</th>
+                            <th>Archivos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for historial in historials %}
+                            
+                                <tr>
+                                    <td>{{historial.createdOn|date('d-m-Y') }}</td>
+                                    <td>{{historial.messageStatus}}</td>
+                                    <td>{{historial.textResponse}}</td>
+                                    <td>{{historial.serviceto}}</td>
+                                    <td>{{historial.closedOn|date('d-m-Y')}}</td>
+
+                                    <td>
+                                        {% if historial.attachments is not empty %}
+                                            <ul>
+                                                {% for attachment in historial.attachments %}
+                                                    <li><a href="{{ asset('attachments/'~attachment.path) }}" download="{{ asset('attachments/'~attachment.path) }}">Archivo {{loop.index}}</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+                <div class="navigation" style="float: right;">
+                    {{ knp_pagination_render(historials) }}
+                </div>
+                        
+            </div>
+                        
+            <!-- /.table-responsive -->
+          {% endif %}  
+           
+        </div>
+    </div>
+
+
+
+</div>
+{% endblock %}

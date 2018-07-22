@@ -1,0 +1,77 @@
+{% extends '::base.html.twig' %}
+
+{% block page -%}
+    <h1>Listado de Solicitudes</h1>
+    <form class="form-inline">
+        <div class="form-group">
+            <label form="filtro">Buscar : </label>
+            <div class="input-group">
+                <span class="input-group-addon" id="filt"><i class=" glyphicon glyphicon-filter"></i></span>
+                <input type="text" class="form-control" name="filtro" id="filter" aria-describedby="filt">
+            </div>
+        </div>
+    </form>
+    <br>
+    <table class="footable table table-bordered" data-page-navigation=".pagination" data-page-size="10" data-limit-navigation="6" data-filter-text-only="true" data-filter="#filter">
+        <thead>
+            <tr>
+                <th>Solicitud n°</th>
+                <th>Sistema forestal</th>
+                <th data-sorted="true" data-direction="DESC">Creado</th>
+                <th>Fecha cierre</th>
+                <th>Asunto</th>
+                <th>Ubicacion</th>
+                <th>Viable</th>
+                <th>Estado</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('corpoticket_show', { 'id': entity.id }) }}">{{ entity.ticketid }}</a></td>
+                <td>{{ entity.tipoReforestacion.descripcion }}</td>
+                <td>{% if entity.creado %}{{ entity.creado|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.fechaCierre %}{{ entity.fechaCierre|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ entity.asunto }}</td>
+                <td>{{ entity.ubicacion.descripcion }}</td>
+                <td>{% if entity.viabilidad== 0 %}<span class="label label-default">NO{% elseif entity.viabilidad== 1  %}
+                <span class="label label-success">SI</span>
+                {% else %}<span>EN ESPERA</span>{% endif %}</td>
+                <td>{% if entity.estado== 1 %}<span class="label label-success">Abierto</span>{% else %}<span class="label label-default">Cerrado</span>{% endif %}</td>
+                <td>
+                    <a alt="VER" class="btn btn-default btn-sm" href="{{ path('corpoticket_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-search"></span> </a>
+                    {% if entity.viabilidad == 1 %}
+                     <a  class="btn btn-default btn-sm" href="{{ path('solicitante_hoja', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-list-alt"></span> </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot><tr><td colspan="12">
+                <nav class="col-md-5 col-md-offset-4"><ul style="margin: 3px 0;" class="pagination"></ul></nav>
+            </td></tr>
+        </tfoot>
+    </table>
+
+            <a  class="btn btn-primary" href="{{ path('corpoticket_new') }}">
+                Crear Solicitud
+            </a>
+
+     <br><br><br>
+    <script type="text/javascript">
+        /*$(function () {
+            $('.footable').footable({
+            });
+        });*/
+        $(document).ready(function(){
+            $('#enviar').on('click',function(){
+               //$(this)..submit();
+                document.form.submit();
+                //formObject.submit();
+            });
+        });
+    </script>
+    {% endblock %}
+

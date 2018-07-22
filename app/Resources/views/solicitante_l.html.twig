@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Bienvenido!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <!-- Bootstrap Core CSS -->
+    <link href="{{ asset('bundles/helpdesk/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{{ asset('bundles/helpdesk/css/metisMenu.min.css') }}" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="{{ asset('bundles/helpdesk/css/timeline.css') }}" rel="stylesheet">
+
+    {#<link href="{{ asset('bundles/helpdesk/css/jquery-ui-1.10.4.custom.css') }}" rel="stylesheet">#}
+
+    <!-- Custom CSS -->
+    <link href="{{ asset('bundles/helpdesk/css/sb-admin-2.css') }}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="{{ asset('bundles/helpdesk/css/morris.css') }}" rel="stylesheet">
+    
+    <link href="{{ asset('bundles/helpdesk/css/body.css') }}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ asset('bundles/helpdesk/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+      <nav class="navbar navbar-default" style="background-color: #FFFFFF">              
+                <div class="mainheader ">
+                    <div class="row" style="width: 100%;">
+                        <div class="col-md-12">
+                                    <a href="http://www.corpochivor.gov.co">
+                                        <div class="logo" >
+                                        <img class="img-responsive" width="440" height="145" alt="" src="{{ asset('bundles/helpdesk/img/logo.png')}}">
+                                        </div>
+                                    </a>
+                        <img class="pull-right" alt="" src="{{ asset('bundles/helpdesk/img/prosperidad1.png')}}">
+                        <img class="pull-right" alt="" src="{{ asset('bundles/helpdesk/img/gobierno-en-linea-1.png')}}">
+                        </div>
+                    </div>
+                </div>
+              <!---  Header      -->
+                <div class="container-fluid minav">
+                    <div class="navbar-header site-desktop-menu">
+                        <button aria-expanded="false" data-target="#bs-example-navbar-collapse-6" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="http://forestal.infoonline.com.co" class="navbar-brand"></a> </div>
+                    <div id="bs-example-navbar-collapse-6" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class=""><a href="http://www.corpochivor.gov.co">Inicio</a></li>
+                            <li><a href="{{path('fos_user_security_login')}}">Iniciar Sesión </a></li>                            
+                    </ul>
+                        </div>
+                    </div>
+                </nav>
+      <div class="container-fluid">
+      
+               
+
+ {% for flashMessage in app.session.flashbag.get('notice') %}
+ 
+    <div class="modal fade in" id="modalmsg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Mensaje</h4>
+      </div>
+      <div class="modal-body">
+  
+    <h4 style="font-weight: bold;">
+        {{ flashMessage|raw }}
+    </h4>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default closemodal" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+          {% for flash in app.session.flashbag.get('danger') %}
+
+                  <div class="alert alert-danger fade in">
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      {{ flash }}
+                  </div>
+              {% endfor %}
+              
+            {% for flash in app.session.flashbag.get('success') %}
+                  <div class="alert alert-success fade in">
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      {{ flash }}
+                  </div>
+              {% endfor %}
+          
+      {% block page %}
+
+      {% endblock %}
+
+      </div>
+
+        <script src="{{ asset('bundles/helpdesk/js/jquery.min.js') }}"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="{{ asset('bundles/helpdesk/js/bootstrap.min.js') }}"></script>
+        <script>
+        $(document).ready(function(){
+        $('body').on('click','.closemodal',function (){
+        $('#modalmsg').css("display", "none");
+        });
+        });
+        </script>
+
+
+      {% block addScripts %} {% endblock %}
+    </body>
+</html>

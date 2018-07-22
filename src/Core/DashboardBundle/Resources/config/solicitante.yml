@@ -1,0 +1,59 @@
+solicitante_listado:
+    path:     /listado
+    defaults: { _controller: "CoreDashboardBundle:Message:listado" }
+
+solicitante_solicitudes:
+    path:     /{id}/solicitudes
+    defaults: { _controller: "CoreDashboardBundle:Message:solicitudes" }
+
+solicitante_inicio:
+    path:     /inicio
+    defaults: { _controller: "CoreDashboardBundle:Message:inicio" }
+
+solicitante_new:
+    path:     /new
+    defaults: { _controller: "CoreDashboardBundle:Message:newSolicitante" }
+
+solicitante_correo:
+    path:     /correo
+    defaults: { _controller: "CoreDashboardBundle:Message:correosolicitante" }
+
+solicitante_create:
+    path:     /create
+    defaults: { _controller: "CoreDashboardBundle:Message:createSolicitante" }
+    methods:  POST
+
+solicitante_consulta:
+    path:     /home/external/consulta
+    defaults: { _controller: "CoreDashboardBundle:Message:consulta" }
+    methods:  [POST,GET]
+my_messages:
+    path:     /home/external/message
+    defaults: { _controller: CoreDashboardBundle:Message:list }
+write_message:
+    path:     /home/external/message/write
+    defaults: { _controller: CoreDashboardBundle:Message:write }
+message_create:
+    path:     /home/external/message/create
+    defaults: { _controller: CoreDashboardBundle:Message:create }
+message_details:
+    path:     /home/external/message/details
+    defaults: { _controller: CoreDashboardBundle:Message:view }
+    methods:  [POST,GET]
+documento:
+    path:     /documento
+    defaults: { _controller: "CoreDashboardBundle:Message:documento" }
+documento_codigo:
+    path:     /documento/codigo
+    defaults: { _controller: "CoreDashboardBundle:Message:documentocodigo" }
+solicitante_hoja:
+    path:     /{id}/hoja
+    defaults: { _controller: "CoreDashboardBundle:Message:hojaSolicitante" }
+
+ver_visitas:
+    path:     /{id}/visita
+    defaults: { _controller: "CoreDashboardBundle:Message:verVisitas" }
+
+pdf_hoja:
+    path:     /{id}/hojapdf
+    defaults: { _controller: "CoreDashboardBundle:Message:hojapdf" }

@@ -1,0 +1,38 @@
+{% extends  "::dashboard.html.twig" %}
+{% block title %} Peticiones {% endblock %}
+{% block header %} Peticiones {% endblock %}
+{% block mainpage %}
+<div class="">
+<br>
+ {% for type, flashes in app.session.flashbag.all %}
+          {% for flash in flashes %}
+        <div class="alert alert-{{ type }} fade in">
+         <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ flash }}
+        </div>
+          {% endfor %}
+         {% endfor %}
+<section id="global" class="span15">
+<form action="" method="post" {{ form_enctype(form) }}>
+<fieldset>
+
+
+<div class="alert alert-info" role="alert">Para adjuntar el archivo correctamente debe tener en cuenta lo siguente.
+<ul>
+  <li>Descargar la siguente Plantilla <a href="{{ asset('plantillas/formato_pqrd.csv') }}"  target="_blank" download="Formato_PQRD.csv"><b>Plantilla PQRD</b></a></li>
+  <li><b>Importante!</b>. El formato de las fechas es Año Mes Dia <b>(AAAA-MM-DD)</b></li>
+</ul>
+</div>
+
+        {{ form_widget(form) }}
+
+
+ </fieldset>
+         <br>
+         <input class="btn btn-primary" type="submit" />
+    </form>
+ </section>
+</div>  
+
+
+{% endblock %}

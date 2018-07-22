@@ -1,0 +1,61 @@
+{% extends  "::dashboard.html.twig" %}
+{% block title %} Peticiones{% endblock %}
+{% block header %} {{message.status}} request {% endblock %}
+{% block mainpage %}
+<div class="col-lg-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {{message.status}} Detalle de Peticion
+        </div>
+        <div class="panel-body">
+            <dl>
+                <dt>Asunto: </dt>
+                <dd>{{message.subject}}</dd>
+                <dt>Mensaje: </dt>
+                <dd>{{message.message}}</dd>
+                <dt>Creado: </dt>
+                <dd>{{message.createdOn|date('d-m-Y')}}</dd>
+                <dt>Creado por: </dt>
+                <dd>{{message.createdBy.firstname}} {{message.createdBy.lastname}}</dd>
+                <dt>Forma de contacto: </dt>
+                <dd>{{message.contactType}}</dd>
+                <dt>Tipo Solicitud: </dt>
+                <dd>{{message.demandType.demandType}}</dd>
+                <dt>Area: </dt>
+                <dd>{{message.currentService}}</dd>
+                <dt>Estado: </dt>
+                <dd>{{message.status}}</dd>
+                <dt>Codigo: </dt>
+                <dd>{{message.code}}</dd>
+                <dt>Leido: </dt>
+                <dd>{% if message.isviewed %}Yes{% else %}No{% endif %}</dd>
+                <dt>Is treated: </dt>
+                <dd>{% if message.isTreated %}Yes{% else %}No{% endif %}</dd>
+                <dt>Debe ser atendida antes de: </dt>
+                <dd>{{message.ExpireOn|date('d-m-Y')}}</dd>
+                {% if message.isviewed %}
+                <dt>Visto por: </dt>
+                <dd>{{message.viewedBy.firstname}} {{message.viewedBy.lastname}} (Reception Dependence)</dd>
+                {% endif %}
+                {% if message.status =='closed' %}
+                <dt>Closed By: </dt>
+                <dd>{{message.closedBy.firstname}} {{message.closedBy.lastname}}</dd>
+                <dt>Cerrada por: </dt>
+                <dd>{{message.closedOn|date('d-m-Y')}}</dd>
+                <dt>Respuesta: </dt>
+                <dd>{{message.responseText}}</dd>
+                {% else %}
+                <dt>Archived because it has not been treated in time  </dt>
+                {% endif %}
+                {% if message.attachments is not empty %}
+                  <dt>Attachments: </dt>
+                  {% for attachment in message.attachments %}
+                      <dd><a href="{{ asset('attachments/'~attachment.path) }}" download="{{ asset('attachments/'~attachment.path) }}">File {{loop.index}}</a></dd>
+                  {% endfor %}
+                {% endif %}
+            </dl>
+         </div>
+<a href="{{path('solicitante_inicio')}}" class="btn btn-primary">Salir</a>
+    </div>
+</div>
+{% endblock %}

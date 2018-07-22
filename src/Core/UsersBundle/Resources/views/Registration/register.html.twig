@@ -1,0 +1,133 @@
+{% extends 'CoreUsersBundle::layout.html.twig' %}
+{% block title %}Registrarse{% endblock %}
+{% block fos_user_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Registrarse</h3>
+                    </div>
+                    <div class="panel-body">
+                        
+                        {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+                            {{ form_widget(form._token) }}
+                            <fieldset>
+                                  <div class="form-group">
+                                    <label class="col-sm-4 control-label">Tipo Documento</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.tipoDoc,  {'attr': {'required':'required','class':'form-control'} }) }}
+                                        {{ form_errors(form.tipoDoc) }}
+                                    </div>
+                                </div>
+                                  <div class="form-group">
+                                    <label class="col-sm-4 control-label">Documento</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.documento,  {'attr': {'required':'required','class':'form-control'} }) }}
+                                        {{ form_errors(form.documento) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Nombres</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.firstName,  {'attr': {'required':'required','class':'form-control'} }) }}
+                                        {{ form_errors(form.firstName) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Apellidos</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.lastName,  {'attr': {'required':'required','class':'form-control'} }) }}
+                                        {{ form_errors(form.lastName) }}
+                                    </div>
+                                </div>
+                                  <div class="form-group">
+                                    <label class="col-sm-4 control-label">Edad</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.edad,  {'attr': {'required':'required','class':'form-control'} }) }}
+                                        {{ form_errors(form.edad) }}
+                                    </div>
+                                </div>
+                                  <div class="form-group">
+                                    <label class="col-sm-4 control-label">Genero</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.genero,  {'attr': {'required':'required','class':'form-control'} }) }}
+                                        {{ form_errors(form.genero) }}
+                                    </div>
+                                </div>
+                                  <div class="form-group">
+                                    <label class="col-sm-4 control-label">Telefono</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.telefono,  {'attr': {'required':'required','class':'form-control'} }) }}
+                                        {{ form_errors(form.telefono) }}
+                                    </div>
+                                </div>
+                                  <div class="form-group">
+                                    <label class="col-sm-4 control-label">Poblacion vulnerable</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.poblacion,  {'attr': {'required':'required','class':'form-control'} }) }}
+                                        {{ form_errors(form.poblacion) }}
+                                    </div>
+                                </div>
+                                  <div class="form-group">
+                                    <label class="col-sm-4 control-label">Pais</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.pais,  {'attr': {'required':'required','class':'form-control'} }) }}
+                                        {{ form_errors(form.pais) }}
+                                    </div>
+                                </div>
+                                  <div class="form-group">
+                                    <label class="col-sm-4 control-label">Departamento</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.departamento,  {'attr': {'required':'required','class':'form-control'} }) }}
+                                        {{ form_errors(form.departamento) }}
+                                    </div>
+                                </div>
+                                  <div class="form-group">
+                                    <label class="col-sm-4 control-label">Ciudad</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.ciudad,  {'attr': {'required':'required','class':'form-control'} }) }}
+                                        {{ form_errors(form.ciudad) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Email</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.email,  {'attr': {'required':'required','class':'form-control', 'type':'email'} }) }}
+                                        {{ form_errors(form.email) }}
+                                    </div>
+                                </div>
+                                {#<div class="form-group">
+                                    <label class="col-sm-4 control-label">Usuario</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.username,  {'attr': {'required':'required','class':'form-control'} }) }}
+                                        {{ form_errors(form.username) }}
+                                    </div>
+                                </div>}
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Contraseña</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.plainPassword.first,  {'attr': {'required':'required','class':'form-control','type':'password'} }) }}
+                                        {{ form_errors(form.plainPassword.first) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Repetir contraseña</label>
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.plainPassword.second,  {'attr': {'required':'required','class':'form-control','type':'password'} }) }}
+                                        {{ form_errors(form.plainPassword.second) }}
+                                    </div>
+                                </div>#}
+                            </fieldset>
+                        {#{ form_widget(form) }#}
+                            <div style="margin-top: 20px;">
+                                <input class="btn btn-lg btn-success btn-block" type="submit" value="Registrar" />
+                            </div>
+                        {{ form_end(form, {'render_rest': false}) }}
+                        
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

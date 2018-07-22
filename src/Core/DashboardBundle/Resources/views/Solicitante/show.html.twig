@@ -1,0 +1,123 @@
+{% extends '::base.html.twig' %}
+
+{% block page -%}
+    {% set fechac = entity.fecha %}
+    {#<h1>Hoja de Vida</h1>#}
+    <div class="panel panel-default">
+        <div class="panel-heading"><b>{{ entity.descripcion }}</b></div>
+        <div class="row">
+            <div class="col-xs-5">
+                <dl class='dl-horizontal'>
+                    <dt>Solicitud No.</dt>
+                    <dd>{{ entity.ticketid.ticketid|raw }}</dd>
+                    <dt>Sistema forestal</dt>
+                    <dd>{{ entity.ticketid.tipoReforestacion.descripcion }}</dd>
+                    <dt>Fecha</dt>
+                    <dd>{{ entity.fecha|date('Y-m-d') }}</dd>
+                    <dt>Identificacion</dt>
+                    <dd>{{ entity.ticketid.uid.documento }}</dd>
+                    <dt>Nombre</dt>
+                    <dd>{{ entity.ticketid.uid.nombres }}</dd>
+                    <dt>Ubicacion</dt>
+                    <dd>{{ entity.ticketid.ubicacion.descripcion }} - {{ entity.ticketid.vereda }}</dd>
+                </dl>
+            </div>
+            <div class="col-xs-3">
+                <dl class='dl-horizontal'>
+                    <dl class='dl-horizontal'>
+                        <dt>Coordenadas </dt>
+                        <dd><b>Norte</b></dd>
+                        <dt>P1</dt>
+                        <dd>{{ entity.p1 }}° {{ entity.p11 }}' {{ entity.p12 }}"</dd>
+                        <dt>P2</dt>
+                        <dd>{{ entity.p2 }}° {{ entity.p21 }}' {{ entity.p22 }}"</dd>
+                        <dt>P3</dt>
+                        <dd>{{ entity.p3 }}° {{ entity.p31 }}' {{ entity.p32 }}"</dd>
+                        <dt>P4</dt>
+                        <dd>{{ entity.p4 }}° {{ entity.p41 }}' {{ entity.p42 }}"</dd>
+                        <dt>P5</dt>
+                        <dd>{{ entity.p51 }}° {{ entity.p51 }}' {{ entity.p52 }}"</dd>
+                    </dl>
+                </dl>
+            </div>
+            <div class="col-xs-3">
+                <dl class='dl-horizontal'>
+                    <dt>Coordenadas</dt>
+                    <dd><b>Este</b></dd>
+                    <dt>P1</dt>
+                    <dd>{{ entity.p6 }}° {{ entity.p61 }}' {{ entity.p62 }}"</dd>
+                    <dt>P2</dt>
+                    <dd>{{ entity.p7 }}° {{ entity.p71 }}' {{ entity.p72 }}"</dd>
+                    <dt>P3</dt>
+                    <dd>{{ entity.p8 }}° {{ entity.p81 }}' {{ entity.p82 }}"</dd>
+                    <dt>P4</dt>
+                    <dd>{{ entity.p9 }}° {{ entity.p91 }}' {{ entity.p92 }}"</dd>
+                    <dt>P5</dt>
+                    <dd>{{ entity.p10 }}° {{ entity.p101 }}' {{ entity.p102 }}"</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    {# <table class="table table-responsive">
+         <tbody>
+             <tr>
+                 <th>Datos</th>
+                 <td><a href="{{ path('corpoticket_show', { 'id': entity.ticketid }) }}"><b>Solicitud No. :</b> {{ entity.ticketid.ticketid|raw }} -  {{ entity.ticketid.tipoReforestacion }} - <b>Solicitante:</b> {{ entity.ticketid.uid.userNicename }}
+                     - <b>Ubicacion:</b>  </a>
+                 </td>
+             </tr>
+             <tr>
+                 <th>Fecha</th>
+                 <td></td>
+             </tr>
+             <tr>
+                 <th>Descripcion</th>
+                 <td></td>
+             </tr>
+             <tr>
+                 <th>Estado</th>
+                 <td>{% if entity.estado == 1 %}Activa{% else %}Inactiva{% endif %}</td>
+             </tr>
+         </tbody>
+     </table>#}
+    <div class="panel panel-default">
+        <div class="panel-heading"><b>Visitas</b></div>
+        <table class="footable table table-bordered" data-page-navigation=".pagination" data-page-size="5" data-limit-navigation="6" >
+            <thead><tr><th>Actividad</th><th data-sorted="true" data-direction="DESC">Fecha</th><th>Descripcion</th><th>Ubicacion</th><th>Opciones</th></tr></thead>
+            <tbody>
+            {% for detalle in detalles %}
+                <tr>
+
+                    <td>
+                        {% if detalle.fecInsumos|datediff(fechac)|date('%y Años - %m Meses(%a)') <= 365%}
+                            Establecimiento
+                        {% endif %}
+
+
+                        {% if detalle.fecInsumos|datediff(fechac)|date('%y Años - %m Meses(%a)') > 365 and detalle.fecInsumos|datediff(fechac)|date('%y Años - %m Meses(%a)') <= 730 %}
+                            Mantenimiento 1
+                        {% endif %}
+
+                        {% if detalle.fecInsumos|datediff(fechac)|date('%y Años - %m Meses(%a)') >=730 %}
+                            Mantenimiento 2
+                        {% endif %}
+                    </td>
+                    <td>{{ detalle.fecInsumos|date("Y-m-d") }}</td>
+                    <td>{{ detalle.descripcion }}</td>
+                    <td>{{ detalle.hoja.ticketid.ubicacion.descripcion }}</td>
+                    <td>
+                        <a class="btn btn-default btn-sm" href="{{ path('ver_visitas', { 'id': detalle.id }) }}"><span class="glyphicon glyphicon-search"></span> </a>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot><tr><td colspan="4">
+                    <nav class="col-md-5 col-md-offset-4"><ul style="margin: 3px 0;" class="pagination"></ul></nav>
+                </td></tr>
+            </tfoot>
+        </table>
+    </div>
+    <a href="{{ path('pdf_hoja',{'id':entity.id}) }}" class="btn btn-primary"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</a>
+    <br><br>
+{% endblock %}

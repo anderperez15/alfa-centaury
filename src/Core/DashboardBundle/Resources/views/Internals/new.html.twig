@@ -1,0 +1,128 @@
+{% extends  "::dashboard.html.twig" %}
+{% block title %}Nuevo Empleado{% endblock %}
+{% block header %}Nuevo Empleado{% endblock %}
+{% block mainpage %}
+    <div class="col-lg-6">
+        {% for flashMessage in app.session.flashbag.get('addInternalError') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Nuevo Empleado
+            </div>
+            <div class="panel-body">
+                <form role="form"  action="{{ path('internal_create') }}" {{ form_enctype(form) }} method="POST">
+                    {{ form_widget(form._token) }}
+                    <div class="form-group">
+                        <label>Nombre</label>
+                         {{ form_widget(form.firstname,  {'attr': {'class':'form-control','required':'required'} }) }}
+                         {{ form_errors(form.firstname) }}
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido</label>
+                         {{ form_widget(form.lastname,  {'attr': {'class':'form-control','required':'required'} }) }}
+                         {{ form_errors(form.lastname) }}
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                         {{ form_widget(form.email,  {'attr': {'required':'required','class':'form-control','type':'email'} }) }}
+                         {{ form_errors(form.email) }}
+                    </div>
+                    <div class="form-group">
+                        <label>Dependencia</label>
+                        {{ form_widget(form.dependecyID) }}
+                        {{ form_errors(form.dependecyID) }} 
+                    </div>
+                    <div class="form-group" id="group-radio">
+                        <label>Jefe de Dependencia</label>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="isBoss" value="1" onchange="handleBoss(this);">Si
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input id="no-radio" type="radio" name="isBoss" value="0" onchange="handleBoss(this);" checked>No
+                            </label>
+                        </div>    
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                         {{ form_widget(form.password,  {'attr': {'required':'required','class':'form-control','type':'password'} }) }}
+                         {{ form_errors(form.password) }}
+                               
+                    </div>
+                    
+                     
+                    
+                    {{ form_rest(form) }}
+                    
+                    <input type="submit" class="btn btn-primary" value="Crear" />
+                </form>
+            </div>
+        </div>
+
+    </div>
+<div class="modal fade" id="modal-confirm-boss" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title">Change dependence boss</h4>
+              </div>
+              <div class="modal-body">
+                  
+              </div>
+              <div class="modal-footer">
+                  <a class="btn btn-success" data-dismiss="modal">Yes</a>
+                  <a class="btn btn-success" data-dismiss="modal" onclick="checkNo();">No</a>
+              </div>
+          </div>
+      </div>
+ </div>
+{% endblock %}
+{% block addScripts %}
+<script>
+function checkNo()
+{
+    $("#no-radio").prop("checked",true);
+}
+$("#helpdesk_add_internal_dependecyID").change(function (){
+   handleBoss(); 
+});
+function handleBoss()
+{
+    var valeur = $("#group-radio input[type=radio]:checked").val();
+    if(valeur == 1)
+    {
+        var role = $("#helpdesk_add_internal_dependecyID option:selected").val();
+        var path= "{{path('check_boss',{'role':'item'})}}";
+        path = path.replace('item',role);
+        $.ajax({
+            url: path,
+            success: function (data, textStatus, jqXHR)
+            {
+                var json = JSON.parse(data);
+                var status = json.status;
+                var message = json.message;
+                console.log(status);
+                if(status==='ko')
+                {
+                    $("#modal-confirm-boss").find(".modal-body").text(message);
+                    $("#modal-confirm-boss").modal('show');
+                    
+                }
+            },
+            error: function (error, textStatus, errorThrown)
+            {
+                console.log(error);        
+            }
+            
+        });
+    }
+    
+}
+</script>
+{% endblock %}

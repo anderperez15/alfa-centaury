@@ -1,0 +1,33 @@
+{% extends  "::dashboard.html.twig" %}
+{% block title %}Jefes de Areas{% endblock %}
+{% block header %}Jefes de Areas {% endblock %}
+{% block mainpage %}
+    <div class="col-lg-6">
+        {% for flashMessage in app.session.flashbag.get('notFoundBoss') %}
+            <div class="alert alert-info">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Jefes de Areas
+            </div>
+            <div class="panel-body">
+                <form role="form"  action="{{path('set_boss_dependence')}}" method="POST">
+                    {% for group in groups %}
+                        <div class="form-group">
+                            <label>{{group.name|capitalize}}</label>
+                            <select name="{{group.id}}" class="form-control">
+                                {% for internal in group.users %}
+                                    <option value="{{internal.id}}" {% if internal.isBoss %}selected{% endif %}>{{internal.firstname}} {{internal.lastname}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% endfor %}
+                    <input type="submit" class="btn btn-primary" value="Confirmar" />
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

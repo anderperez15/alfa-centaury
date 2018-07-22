@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm -f dev.log prod.log
+touch dev.log
+touch prod.log
+chown corpochivorgov:corpochivorgov prod.log dev.log
+chmod 755 dev.log prod.log

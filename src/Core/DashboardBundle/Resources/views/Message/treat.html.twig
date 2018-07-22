@@ -1,0 +1,215 @@
+{% extends  "::dashboard.html.twig" %}
+{% block title %} Peticiones {% endblock %}
+{% block header %} Peticiones {% endblock %}
+{% block mainpage %}
+<div class="col-lg-7">
+   
+<div class="panel panel-default">
+        <div class="panel-heading">
+            Datos del Solicitante
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>Tipo Documento: </dt>
+                <dd>{{message.createdBy.tipoDoc.descripcion}} </dd>
+                <dt>No. Documento: </dt>
+                <dd>{{message.createdBy.documento}}</dd>
+
+                <dt>Primer Nombre: </dt>
+                <dd>{{message.createdBy.primerNombre}}</dd>
+
+                <dt>Segundo Nombre: </dt>
+                <dd>{{message.createdBy.segundoNombre}}</dd>
+
+                <dt>Primer Apellido: </dt>
+                <dd>{{message.createdBy.primerApellido}}</dd>
+
+                <dt>Segundo Apellido: </dt>
+                <dd>{{message.createdBy.segundoApellido}}</dd>
+
+                <dt>Ubicacion geografica: </dt>
+                <dd>{{message.createdBy.ciudad.dep.depNom}} - {{message.createdBy.ciudad.ciuNom}}</dd>
+
+                <dt>Direccion: </dt>
+                <dd>{{message.createdBy.direccion}}</dd>
+
+                <dt>Telefono: </dt>
+                <dd>{{message.createdBy.telefono}}</dd>
+
+                <dt>Genero: </dt>
+                <dd>{{message.createdBy.genero.descripcion}}</dd>
+            </dl>
+   
+       </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Detalle de Peticion
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>Asunto: </dt>
+                <dd><p>{{message.subject}}</p></dd>
+                <dt>Mensaje: </dt>
+                <dd><textarea disabled style="width:100%" >{{message.message}}</textarea></dd>
+                <dt>Radicado: </dt>
+                <dd>{{message.radicado}}</dd>
+                <dt>Fecha Radicado: </dt>
+                <dd>{{message.createdOn|date('d-m-Y')}}</dd>                
+                <dt>Forma de Contacto: </dt>
+                <dd>{{message.contactType}}</dd>
+                {% if message.contactType == 'adress' %}
+                    <dt>Direccion del Solicitante: </dt>
+                    <dd>{{message.createdBy.direccion}}</dd>
+                {% endif %}
+                {% if message.contactType == 'mail' %}
+                    <dt>Correo Electronico: </dt>
+                    <dd>{{message.createdBy.correo}}</dd>
+                {% endif %}
+                <dt>Tipo Denuncia: </dt>
+                <dd>{{message.demandType.demandType}}</dd>               
+                <dt>Estado: </dt>
+                <dd>{{message.status}}</dd>
+                <dt>Codigo: </dt>
+                <dd>{{message.code}}</dd>
+                <dt>Debe Responderse antes de: </dt>
+                <dd>{% if message.antesD%}{{message.antesD|date('Y-m-d') }}{% endif %}</dd>
+
+                {% if message.attachments is not empty %}
+                  <dt>Archivos: </dt>
+                  {% for attachment in message.attachments %}
+                      <dd><a href="{{ asset('attachments/'~attachment.path) }}" download="{{ asset('attachments/'~attachment.path) }}">Archivo {{loop.index}}</a></dd>
+                  {% endfor %}
+                {% endif %}
+                
+            </dl>
+                {% if user.isBoss %}
+                    <a href="{{path('pdf_pet',{'id':message.id})}}" class="btn btn-info" target="_blank" >PDF</a>
+                  <a href="#" class="btn btn-info" data-toggle="modal" data-target="#modal-move-request">Respuesta</a>                    
+                    {% endif %}
+                <a href="{{path('csv',{'id':message.id})}}" class="btn btn-info" >Archivo Plano</a>
+                <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#modal-close-request">Estado del Tramite</a>
+                                    <a href="{{path('messages_internals')}}" class="btn btn-default" >Regresar al Listado</a>
+            
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-move-request" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <form action="{{path('move_message',{'id':message.id})}}" method="POST" enctype="multipart/form-data">
+                  
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title">Mover a otra area</h4>
+              </div>
+              <div class="modal-body">
+                      <div class="form-group">
+                          <label>Seleccione Area </label>
+                          {% if services is empty %}
+                              <div class="alert alert-danger">
+                                   No hay Dependencias
+                               </div>
+                          {% endif %}
+                          <select name="toservice" class="form-control" required>
+                              {% for service in services %}
+                                  <option value="{{service['name']|capitalize}}">{{service['name']|capitalize}}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label>No. Radicado</label>
+                          <input type="text" name="nradicado" class="form-control" />
+                      </div>
+                      <div class="form-group">
+                          <label>Fecha Radicado</label>
+                          <input type="text" name="fecRa" class="form-control" />
+                      </div>
+                      <div class="form-group">
+                          <label>Debe Responderse antes de</label>
+                          <input type="text" name="FecCi" class="form-control" />
+                      </div>
+                      <div class="form-group">
+                          <label>Mensaje</label>
+                          <textarea name="textResponse" required class="form-control"></textarea>
+                      </div>
+                      <div class="form-group">
+                          <label>Archivos</label>
+                          <input type="file" multiple name="attachments[]" class="form-control" />
+                      </div>
+              </div>
+              <div class="modal-footer">
+                  <a class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                  <input type="submit" class="btn btn-success" value="Enviar" />
+              </div>
+          </form>      
+          </div>
+      </div>
+  </div>
+  <div class="modal fade" id="modal-close-request" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <form action="{{path('close_message',{'id':message.id})}}" method="POST" role="form">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Cerrar Solicitud</h4>
+                    </div>
+                    <div class="modal-body">
+                       Seguro que desea cerrar la solicitud ?
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>Mensaje</label>
+                            <textarea name="responseText" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>Encuesta</label>
+                            <input type="text" name="encuesta" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                        <input type="submit" class="btn btn-success" value="Enviar" >
+                    </div>
+              </form>
+          </div>
+      </div>
+  </div>
+    <div class="modal fade" id="modal-share-request" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form action="{% if message.canBeViewed == 0 %}{{path('share_message',{'id':message.id,'share':1})}}{% else %}{{path('share_message',{'id':message.id,'share':0})}}{% endif %}" method="POST" enctype="multipart/form-data">
+              <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Share a request</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="share" value="{% if message.canBeViewed == 0 %}1{% else %}0{% endif %}" />
+                     {% if message.canBeViewed == 0 %}
+                     <div class="form-group">
+                          <label>With which user from the dependence you want to share this request ?</label>
+                          <select name="receiverID" class="form-control" required>
+                              {% for internal in users %}
+                                  <option value="{{internal.id}}">{{internal.firstname}} {{internal.lastname}}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                     {% endif %}
+                      <div class="form-group">
+                          <label>Type some text</label>
+                          <textarea name="textResponse" required class="form-control"></textarea>
+                      </div>
+                      <div class="form-group">
+                          <label>Attachments</label>
+                          <input type="file" multiple name="attachments[]" class="form-control" />
+                      </div>
+                    
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-white" data-dismiss="modal">No</a>
+                        <input type="submit" value="{% if message.canBeViewed == 0 %}Share{% else %}Unshare{% endif %}" class="btn btn-success" />
+                    </div>
+          </form>
+        </div>
+      </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends '::solicitante_l.html.twig' %}
+
+{% block page -%}
+
+    <h1></h1>
+<div class="col-lg-6 col-lg-offset-3" style="align:center ">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <b>Datos del Solicitante</b> 
+        </div>
+  <div class="panel-body">
+
+<div class="alert alert-success">
+
+A partir de ahora el correo electrónico es un campo obligatorio y cada petición va a contar con un código único para consultas
+</div>
+  <small><mark>Los Campos con * son Requeridos</mark></small><br><br>
+  
+{{ form_errors(form) }}
+    {{ form(form)}}
+    <br>
+  <a href="{{path('solicitante_inicio')}}" class="btn btn-default">Salir</a>
+     </div>
+        </div>
+    </div>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script>
+
+  $(document).ready(function(){
+	 $("#Core_DashboardBundle_solicitante_departamento").change(function() {
+                $('#Core_DashboardBundle_solicitante_ciudad').empty();
+                $('#Core_DashboardBundle_solicitante_ciudad').append('<option value="0">Seleccione...</option>');
+                $.post(
+                        "{{ path('ciudad') }}",
+                        {q: this.value},
+                function(data) {
+                    $.map(data, function(item) {                                                
+                         $('#Core_DashboardBundle_solicitante_ciudad').append('<option value="'+item.id+'">'+item.ciuNom+'</option>');
+                    });
+                },"json"
+                       );
+            });
+
+
+
+	   $("#Core_DashboardBundle_solicitante_correo").change(function(){
+        
+        var correo = $("#Core_DashboardBundle_solicitante_correo").val();
+        $.post( "{{path('solicitante_correo')}}", { correo: correo }).done(function( data ) {
+              if(data == true){
+                 $("#Core_DashboardBundle_solicitante_correo").focus();
+                alert("Este correo ya se encuentra registrado");
+                 $("#Core_DashboardBundle_solicitante_correo").val('');
+
+                    return false;
+
+                }else{
+					return true;
+				}
+          });
+    });
+
+
+});
+
+
+
+
+
+
+
+
+
+</script>
+{% endblock %}
+
+

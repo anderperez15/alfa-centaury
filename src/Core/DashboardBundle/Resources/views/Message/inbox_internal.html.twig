@@ -1,0 +1,132 @@
+{% extends  "::dashboard.html.twig" %}
+{% block title %} Peticiones {% endblock %}
+{% block header %} Peticiones recibidas 
+<style>
+
+.boldtable, .boldtable TD, .boldtable TH
+{
+font-size:8pt;
+}
+
+</style>
+{% endblock %}
+{% block mainpage %}
+<div class="col-lg-12">
+    {% for flashMessage in app.session.flashbag.get('moveRequest') %}
+            <div class="alert alert-info">
+                {{ flashMessage }}
+            </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('closeRequest') %}
+            <div class="alert alert-info">
+                {{ flashMessage }}
+            </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('shareRequest') %}
+            <div class="alert alert-info">
+                {{ flashMessage }}
+            </div>
+    {% endfor %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          Peticiones Recibidas
+        </div>
+        <div class="panel-body">
+
+            <div class="table-responsive">
+ <form class="form-inline">
+            <div class="form-group">
+                <label form="filtro">Buscar : </label>
+                <div class="input-group">
+                    <span class="input-group-addon" id="filt">{#<i class=" glyphicon glyphicon-filter"></i>#}</span>
+                    <input type="text" class="form-control" name="filtro" id="filter" aria-describedby="filt">                    
+                </div>
+               &nbsp;&nbsp;<a href="{{path('peticiones')}}" class="btn btn-default">Excel Peticiones</a>
+            </div>
+        </form>
+          
+<br>
+                <table id="footable" class="footable table table-striped table-bordered table-hover boldtable" data-page-navigation=".pagination" data-page-size="10" data-limit-navigation="5" data-filter-text-only="true" data-filter="#filter">
+                    <thead>
+                        <tr>
+                            <th>Primer Nombre</th>
+                            <th>Segundo Nombre</th>
+                            <th>Primer Apellido</th>
+                            <th>Segundo Apellido</th>
+                            <th>No. Ticket</th>
+                            <th>No. Radicado</th>
+                            <th>Fec. Radicacion</th>
+                            <th>Dependecia</th>
+                            <th>Asunto</th>
+                            <th>Tipo Denuncia</th>
+                            <th>Creada</th>
+                            <th>Estado</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for message in messages %}
+                            
+                                <tr {% if message.isviewed ==0 %}class="danger"{% endif %}>
+                                    <td>{{message.createdBy.primerNombre }}</td> 
+                                    <td>{{message.createdBy.segundoNombre }}</td>
+                                    <td>{{message.createdBy.primerApellido }}</td>
+                                    <td>{{message.createdBy.segundoApellido }}</td>
+                                    <td>{{message.code }}</td>
+                                    <td>{{message.radicado }}</td>
+                                    <td>{% if message.fecRa %}{{message.fecRa|date('d-m-Y') }}{% endif %}</td>
+                                    <td>{{message.currentService}}</td>
+                                   <td>{{message.subject }}</td>
+                                    <td>{{message.demandType.demandType}}</td>
+                                    <td>{{message.createdOn|date('d-m-Y')}}</td>
+                                    <td>{{message.status}}</td>
+                                    <td style="text-align: center">
+                                        {% if message.historial is not empty %}
+                                            <a href="{{path('historial_message',{'id':message.id})}}" class="btn btn-sm btn-info">Historicos</a>
+                                        {% endif %}
+                                        <a href="{{path('treat_message',{'id':message.id})}}" class="btn btn-sm btn-info {% if message.status not in ['abierto','En Tramite'] %}disabled{% endif %}">Ver</a>
+                                    </td>
+                                </tr>                            
+                        {% endfor %}
+                        
+                    </tbody>
+         <tfoot><tr><td colspan="13">
+                <nav class="col-md-5 col-md-offset-4"><ul style="margin: 3px 0;" class="pagination"></ul></nav>
+            </td></tr>
+        </tfoot>
+                </table>
+               
+                        
+            </div>
+                        
+            <!-- /.table-responsive -->
+           
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#footable').footable().bind('footable_filtering', function(e) {
+            var selected = $('.filter-area').find(':selected').text();
+            if (selected && selected.length > 0) {
+                e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+                e.clear = !e.filter;
+            }
+        });
+        $('.clear-filter').click(function(e) {
+            e.preventDefault();
+            $('.filter-area').val('');
+            $('#footable.footable').trigger('footable_clear_filter');
+        });
+        $('.filter-area').change(function(e) {
+            e.preventDefault();
+            $('#footable.footable').trigger('footable_filter', {filter: $('#filter').val()});
+            console.log(  $('#footable.footable').trigger('footable_filter', {filter: $('#filter').val()}));
+        });           
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+core_dashboard_homepage:
+    path:     /
+    defaults: { _controller: CoreDashboardBundle:Default:index }
+new_internal:
+    path:     /home/admin/internals/new
+    defaults: { _controller: CoreDashboardBundle:Internal:new }
+internal_create:
+    path:     /home/admin/internals/create
+    defaults: { _controller: CoreDashboardBundle:Internal:create }
+internals:
+    path:     /home/admin/internals
+    defaults: { _controller: CoreDashboardBundle:Internal:list }
+internal_edit:
+    path:     /home/admin/internals/edit/{id}
+    defaults: { _controller: CoreDashboardBundle:Internal:edit }
+internal_update:
+    path:     /home/admin/internals/update/{id}
+    defaults: { _controller: CoreDashboardBundle:Internal:update }
+internal_delete:
+    path:     /home/admin/internals/delete/{id}
+    defaults: { _controller: CoreDashboardBundle:Internal:delete }
+demands:
+    path:     /home/admin/demands
+    defaults: { _controller: CoreDashboardBundle:Demand:demands }
+demand_configure:
+    path:     /home/admin/demands/configure
+    defaults: { _controller: CoreDashboardBundle:Demand:configure }
+dependence_boss:
+    path:     /home/admin/internals/bosses
+    defaults: { _controller: CoreDashboardBundle:Internal:bosses }
+set_boss_dependence:
+    path:     /home/admin/internals/bosses/set
+    defaults: { _controller: CoreDashboardBundle:Internal:setBoss }
+check_boss:
+    path:     /home/admin/internals/bosses/check/{role}
+    defaults: { _controller: CoreDashboardBundle:Internal:checkBoss }
+my_messages:
+    path:     /home/external/message
+    defaults: { _controller: CoreDashboardBundle:Message:list }
+write_message:
+    path:     /home/external/message/write
+    defaults: { _controller: CoreDashboardBundle:Message:write }
+message_create:
+    path:     /home/external/message/create
+    defaults: { _controller: CoreDashboardBundle:Message:create }
+message_details:
+    path:     /home/external/message/details/{id}
+    defaults: { _controller: CoreDashboardBundle:Message:view }
+messages_internals:
+    path:     /home/internals/message/
+    defaults: { _controller: CoreDashboardBundle:Message:internal }
+treat_message:
+    path:     /home/internals/message/treat/{id}
+    defaults: { _controller: CoreDashboardBundle:Message:treat }
+move_message:
+    path:     /home/internals/message/move/{id}
+    defaults: { _controller: CoreDashboardBundle:Message:move }
+close_message:
+    path:     /home/internals/message/close/{id}
+    defaults: { _controller: CoreDashboardBundle:Message:close }
+messages_see_type:
+    path:     /home/internals/message/type/{type}
+    defaults: { _controller: CoreDashboardBundle:Message:type }
+see_message:
+    path:     /home/internals/message/type/see/{id}
+    defaults: { _controller: CoreDashboardBundle:Message:see }
+share_message:
+    path:     /home/internals/message/share/{id}
+    defaults: { _controller: CoreDashboardBundle:Message:share }
+historial_message:
+    path:     /home/internals/message/historial/{id}
+    defaults: { _controller: CoreDashboardBundle:Message:historial }
+my_notifs:
+    path:     /home/internals/notifs
+    defaults: { _controller: CoreDashboardBundle:Message:notifs }
+pdf_pet:    
+    path:     /home/mesage/petpdf/{id}
+    defaults: { _controller: CoreDashboardBundle:Message:petpdf }
+csv:    
+    path:     /home/mesage/csv/{id}
+    defaults: { _controller: CoreDashboardBundle:Message:csv }
+ciudad:    
+    path:     /home/mesage/ciudades
+    defaults: { _controller: CoreDashboardBundle:Message:ciudad }
+
+peticiones:    
+    path:     /home/mesage/peticiones
+    defaults: { _controller: CoreDashboardBundle:Message:peticiones }

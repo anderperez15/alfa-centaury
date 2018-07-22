@@ -1,0 +1,176 @@
+{% extends  "::solicitante_l.html.twig" %}
+{% block title %}PQRD{% endblock %}
+{% block header %}Nuevo PQRD{% endblock %}
+{% block page %}
+    <div class="col-lg-12">      
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Nuevo PQRD</b>
+            </div>
+            <div class="panel-body">
+                <form role="form"  action="{{path('message_create')}}" method="POST" enctype="multipart/form-data" id="formdatos">
+                      
+                    <div class="form-group">
+                          <label>Tipo Solicitud</label>
+                          <select name="demandType" class="form-control">
+                              {% for demand in demands %}
+                                  <option value="{{demand.id}}">{{demand.demandType}}</option>
+                              {% endfor %}
+                          </select>
+                    </div>
+               
+		<!--
+                    <div class="form-group">
+                          <label>Medio de Respuesta</label>
+                          <select name="contactType" class="form-control" onchange="handleContact(this);">
+                              <option value="#">Seleccione..</option>
+                              <option value="mail">Email</option>
+                              <option value="adress">Direccion</option>
+                          </select>
+                    </div>
+       		-->
+
+
+                    <div class="form-group" id="user-mail">
+                          <label>Correo Electronico</label>
+                          <input type="text" name="mail" class="form-control" required />
+                    </div>
+                    <div class="form-group" id="user-adress">
+                        <div class="form-check">
+                          <input onchange="$('#address').toggle()" class="form-check-input" type="checkbox" id="defaultCheck1">
+                          <label class="form-check-label" for="defaultCheck1">
+                            Direccion
+                          </label>
+                        </div>
+                        <input style="display: none" id="address" placeholder="Direccion" type="text" name="adress" class="form-control">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Numero Documento</label>
+                        <input type="hidden" name="numdoc" id="numdoc" class="form-control" />
+                        <input type="text" name="documento" id="documento" class="form-control" required />
+                    </div>
+           
+                    <div class="form-group">
+                          <label>Asunto</label>
+                          <input type="text" name="subject" class="form-control" required />
+                    </div>
+            <div class="form-group">
+                          <label>Detalle su Peticion</label>
+                          <textarea name="message" class="form-control" required ></textarea>
+                    </div>
+                
+                    <div class="form-group">
+                        <label>Adjuntar Archivos</label>
+                        <input type="file" multiple name="attachments[]" class="form-control" />
+                        <input type="file" multiple name="attachments1[]" class="form-control" />
+                        <input type="file" multiple name="attachments2[]" class="form-control" />
+                    </div>
+                   
+{#                   <div class="g-recaptcha" data-sitekey="6Ld-mBwTAAAAAEGyxh896xNLYBIHFNKV8XR7SX1z"></div> #}
+                        <br><br>                
+                    <input type="button" class="btn btn-primary" value="Enviar" id="enviar" />
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block addScripts %}
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<script>
+function handleContact(item)
+{
+    var contact = $(item).val();
+    if(contact =='adress')
+    {
+        $("#user-mail input[type=text]").prop("required",false);
+        $("#user-mail").hide();
+        $("#user-adress input[type=text]").prop("required",true);
+        $("#user-adress").show();
+
+    }
+    else
+    {   $("#user-adress input[type=text]").prop("required",false);
+        $("#user-adress").hide();
+        $("#user-mail input[type=text]").prop("required",true);
+        $("#user-mail").show();
+       
+    }
+}
+
+$(document).ready(function(){
+
+$("#enviar").bind("click", function(){
+		console.log("buscar");
+	$.post("{{ path('documento')}}",{term:$("#documento").val()}).done(
+function(data){
+   if(data == false){
+	alert("Numero de documento no registrado");
+	$("#documento").val('');
+	$("#documento").focus();
+return false;
+}else{
+	$("#formdatos").submit();
+}
+
+
+});
+
+});
+
+
+
+
+/*    var NoResultsLabel = "No existe el documento ingresado";
+
+    $('#documentona').autocomplete({
+
+        source: function (request, response) { //
+            $.ajax({
+                url: '{{ path('documento') }}',
+                dataType: "json",
+                data: {
+                    //request.term is the value of the current textbox.
+                    term: request.term,
+                },
+                success: function (data) {
+                    if (!data.length) {
+                        data = [NoResultsLabel];
+                        response(data);
+                    }else{
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.documento + ' - ' + item.primerNombre +' '+(item.segundoNombre ? item.segundoNombre : "" )+' '+item.primerApellido+' '+(item.segundoApellido ? item.segundoApellido : "" ),
+                                value: item.id
+                            }
+                        }));
+                    }
+                },
+            });
+        },
+        minLength: 3,
+        select: function (event, ui) {
+            if (ui.item.label === NoResultsLabel) {
+                event.preventDefault();
+            }else {
+                $('#numdoc').val(ui.item.value);
+                $('#documento').val(ui.item.label);
+                return false;
+            }
+        },
+        focus: function (event, ui) {
+            if (ui.item.label === NoResultsLabel) {
+                event.preventDefault();
+                $('#documento').val("");
+            }
+        }
+    });*/
+});
+
+</script>
+{% endblock %}

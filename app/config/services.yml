@@ -1,0 +1,14 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    core.form.registration:
+        class: CoreUsersBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: core_user_registration }
+    core.form.profile:
+        class: CoreUsersBundle\Form\Type\ProfileFormType
+        tags:
+            - { name: form.type, alias: helpdesk_user_profile }
